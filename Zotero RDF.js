@@ -340,6 +340,14 @@ function generateItem(item, zoteroType, resource) {
 	} else if(item.path) {	// For Zotero 2.1
 		Zotero.RDF.addStatement(resource, rdf+"resource", item.path, false);
 	}
+
+	// forcing dateAdded and dateModified
+	if(item.dateAdded) {				// dateAdded
+		Zotero.RDF.addStatement(resource, n.dc+"dateAdded", item.dateAdded, true);
+	}
+	if(item.dateModified) {				// dateModified
+		Zotero.RDF.addStatement(resource, n.dc+"dateModified", item.dateModified, true);
+	}
     
 	// seeAlso and tags
 	if(item.seeAlso) generateSeeAlso(resource, item.seeAlso);

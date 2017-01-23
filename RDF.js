@@ -894,7 +894,13 @@ function importItem(newItem, node) {
 	newItem.accessDate = getFirstResults(node, [n.dcterms+"dateSubmitted"], true);
 	// lastModified
 	newItem.lastModified = getFirstResults(node, [n.dcterms+"modified"], true);
-	
+
+	// forcing dateAdded and dateModified
+	newItem.dateAdded = getFirstResults(node, [n.dc+"dateAdded"], true);
+	if(newItem.dateAdded){newItem.dateAdded = newItem.dateAdded.replace(' ','T')+'Z';} // fast Zotero.Date.strToISO
+	newItem.dateModified = getFirstResults(node, [n.dc+"dateModified"], true);
+	if(newItem.dateModified){newItem.dateModified = newItem.dateModified.replace(' ','T')+'Z';} // fast Zotero.Date.strToISO
+
 	// identifier
 	var identifiers = getFirstResults(node, [n.dc+"identifier", n.dc1_0+"identifier", n.dcterms+"identifier"]);
 	if(container) {
